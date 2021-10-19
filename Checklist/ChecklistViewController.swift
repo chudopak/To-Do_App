@@ -63,13 +63,21 @@ class ChecklistViewController: UITableViewController {
 		tableView.deselectRow(at: indexPath, animated: true)
 	}
 	
+	override func tableView(_ tableView: UITableView,
+							commit editingStyle: UITableViewCell.EditingStyle,
+							forRowAt indexPath: IndexPath) {
+	  _items.remove(at: indexPath.row)
+	  let indexPaths = [indexPath]
+	  tableView.deleteRows(at: indexPaths, with: .automatic)
+	}
+	
 	@IBAction func addItem() {
 		let newRowIndex = _items.count
-		  let item = ChecklistItem(text: "I'm a new item", checked: false)
-		  _items.append(item)
-		  let indexPath = IndexPath(row: newRowIndex, section: 0)
-		  let indexPaths = [indexPath]
-		  tableView.insertRows(at: indexPaths, with: .automatic)
+		let item = ChecklistItem(text: "I'm a new item", checked: true)
+		_items.append(item)
+		let indexPath = IndexPath(row: newRowIndex, section: 0)
+		let indexPaths = [indexPath]
+		tableView.insertRows(at: indexPaths, with: .automatic)
 	}
 }
 
