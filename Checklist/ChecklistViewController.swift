@@ -7,17 +7,21 @@
 
 import UIKit
 
-struct RowData {
-	var row0 = (text: "Walk the dog", checked: false)
-	var row1 = (text: "Brush my teeth", checked: false)
-	var row2 = (text: "Learn iOS development", checked: false)
-	var row3 = (text: "Soccer practice", checked: false)
-	var row4 = (text: "Eat ice cream", checked: false)
-}
-
 class ChecklistViewController: UITableViewController {
 
-	var rowData = RowData()
+	private var _items: Array<ChecklistItem>
+	
+	required init?(coder aDecoder: NSCoder) {
+		_items = [ChecklistItem]()
+		
+		_items.append(ChecklistItem(text: "Walk the dog", checked: true))
+		_items.append(ChecklistItem(text: "Brush my teeth", checked: false))
+		_items.append(ChecklistItem(text: "Learn iOS development", checked: false))
+		_items.append(ChecklistItem(text: "Soccer practice", checked: false))
+		_items.append(ChecklistItem(text: "Eat ice cream", checked: false))
+
+		super.init(coder: aDecoder)
+	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -25,7 +29,7 @@ class ChecklistViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return (100)
+		return (_items.count)
 	}
 
 	override func tableView(_ tableView:UITableView,
@@ -33,22 +37,9 @@ class ChecklistViewController: UITableViewController {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
 		
 		let label = cell.viewWithTag(1000) as! UILabel
-		if indexPath.row % 5 == 0 {
-			label.text = rowData.row0.text
-			_isChecked(rowChecked: rowData.row0.checked, cell: cell)
-		} else if indexPath.row % 5 == 1 {
-			label.text = rowData.row1.text
-			_isChecked(rowChecked: rowData.row1.checked, cell: cell)
-		} else if indexPath.row % 5 == 2 {
-			label.text = rowData.row2.text
-			_isChecked(rowChecked: rowData.row2.checked, cell: cell)
-		} else if indexPath.row % 5 == 3 {
-			label.text = rowData.row3.text
-			_isChecked(rowChecked: rowData.row3.checked, cell: cell)
-		} else if indexPath.row % 5 == 4 {
-			label.text = rowData.row4.text
-			_isChecked(rowChecked: rowData.row4.checked, cell: cell)
-		}
+
+		label.text = _items[indexPath.row].text
+		_isChecked(rowChecked: _items[indexPath.row].checked, cell: cell)
 		return (cell)
 	}
 	
@@ -61,22 +52,8 @@ class ChecklistViewController: UITableViewController {
 	}
 	
 	private func _rowInteraction(cell: UITableViewCell, didSelectRowAt indexPath: IndexPath) {
-		if indexPath.row % 5 == 0 {
-			rowData.row0.checked = !rowData.row0.checked
-			_isChecked(rowChecked: rowData.row0.checked, cell: cell)
-		} else if indexPath.row % 5 == 1 {
-			rowData.row1.checked = !rowData.row1.checked
-			_isChecked(rowChecked: rowData.row1.checked, cell: cell)
-		} else if indexPath.row % 5 == 2 {
-			rowData.row2.checked = !rowData.row2.checked
-			_isChecked(rowChecked: rowData.row2.checked, cell: cell)
-		} else if indexPath.row % 5 == 3 {
-			rowData.row3.checked = !rowData.row3.checked
-			_isChecked(rowChecked: rowData.row3.checked, cell: cell)
-		} else if indexPath.row % 5 == 4 {
-			rowData.row4.checked = !rowData.row4.checked
-			_isChecked(rowChecked: rowData.row4.checked, cell: cell)
-		}
+		_items[indexPath.row].toggleChecked()
+		_isChecked(rowChecked: _items[indexPath.row].checked, cell: cell)
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -84,6 +61,15 @@ class ChecklistViewController: UITableViewController {
 			_rowInteraction(cell: cell, didSelectRowAt: indexPath)
 		}
 		tableView.deselectRow(at: indexPath, animated: true)
+	}
+	
+	@IBAction func addItem() {
+		let newRowIndex = _items.count
+		  let item = ChecklistItem(text: "I'm a new item", checked: false)
+		  _items.append(item)
+		  let indexPath = IndexPath(row: newRowIndex, section: 0)
+		  let indexPaths = [indexPath]
+		  tableView.insertRows(at: indexPaths, with: .automatic)
 	}
 }
 
