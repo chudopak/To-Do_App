@@ -7,8 +7,8 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController {
-
+class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
+	
 	private var _items: Array<ChecklistItem>
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -43,6 +43,14 @@ class ChecklistViewController: UITableViewController {
 		return (cell)
 	}
 	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if (segue.identifier == "AddItem") {
+			let navigationController = segue.destination as! UINavigationController
+			let controller = navigationController.topViewController as! AddItemViewController
+			controller.delegate = self
+		}
+	}
+	
 	private func _isChecked(rowChecked: Bool, cell: UITableViewCell) {
 		if (rowChecked == true) {
 			cell.accessoryType = .checkmark
@@ -71,13 +79,24 @@ class ChecklistViewController: UITableViewController {
 	  tableView.deleteRows(at: indexPaths, with: .automatic)
 	}
 	
-	@IBAction func addItem() {
+	func _addItem(item: ChecklistItem) {
 		let newRowIndex = _items.count
-		let item = ChecklistItem(text: "I'm a new item", checked: true)
 		_items.append(item)
 		let indexPath = IndexPath(row: newRowIndex, section: 0)
 		let indexPaths = [indexPath]
 		tableView.insertRows(at: indexPaths, with: .automatic)
 	}
+	
+	func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+		dismiss(animated: true, completion: nil)
+//		print("Cancel")
+	}
+	
+	func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem) {
+		_addItem(item: item)
+		dismiss(animated: true, completion: nil)
+//		print("done")
+	}
+	
 }
 

@@ -42,7 +42,7 @@
                     <navigationItem key="navigationItem" title="Checklist" id="Suw-JC-P21">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ttp-DX-xCf">
                             <connections>
-                                <segue destination="wWG-hi-Z6f" kind="presentation" id="p5C-2I-FFK"/>
+                                <segue destination="wWG-hi-Z6f" kind="presentation" identifier="AddItem" id="p5C-2I-FFK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -69,7 +69,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of the item" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Niz-e2-LlL">
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of the item" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Niz-e2-LlL">
                                                     <rect key="frame" x="4" y="3" width="407" height="37"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -93,7 +93,7 @@
                     <navigationItem key="navigationItem" title="Add Item" id="OQc-6s-mvt">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="VnX-tg-jKu">
                             <connections>
-                                <action selector="close" destination="HfI-Md-EpM" id="tLe-AT-9Fu"/>
+                                <action selector="cancel" destination="HfI-Md-EpM" id="ylP-eF-BMy"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" style="done" systemItem="done" id="hlA-Al-i9T">
