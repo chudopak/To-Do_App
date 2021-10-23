@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
+class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {
 	
 	private var _items: Array<ChecklistItem>
 	
@@ -36,19 +36,15 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
 							cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
 		
-		let label = cell.viewWithTag(1000) as! UILabel
-
-		label.text = _items[indexPath.row].text
+		_configureText(cell: cell, with: _items[indexPath.row])
 		_configureCheckmark(rowChecked: _items[indexPath.row].checked, cell: cell)
 		return (cell)
 	}
 	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if (segue.identifier == "AddItem") {
-			let navigationController = segue.destination as! UINavigationController
-			let controller = navigationController.topViewController as! AddItemViewController
-			controller.delegate = self
-		}
+	private func _configureText(cell: UITableViewCell, with item: ChecklistItem) {
+		let label = cell.viewWithTag(1000) as! UILabel
+
+		label.text = item.text
 	}
 	
 	private func _configureCheckmark(rowChecked: Bool, cell: UITableViewCell) {
@@ -89,16 +85,38 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
 		tableView.insertRows(at: indexPaths, with: .automatic)
 	}
 	
-	func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+	func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
 		dismiss(animated: true, completion: nil)
-//		print("Cancel")
 	}
 	
-	func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem) {
+	func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
 		_addItem(item: item)
 		dismiss(animated: true, completion: nil)
-//		print("done")
 	}
 	
+	func itemDetailViewController(_ controllet: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
+		if let index = _items.firstIndex(of: item) {
+			let indexPath = IndexPath(row: index, section: 0)
+			if let cell = tableView.cellForRow(at: indexPath) {
+			  _configureText(cell: cell, with: item)
+			}
+		}
+		dismiss(animated: true, completion: nil)
+	}
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if (segue.identifier == "AddItem") {
+			let navigationController = segue.destination as! UINavigationController
+			let controller = navigationController.topViewController as! ItemDetailViewController
+			controller.delegate = self
+		} else if (segue.identifier == "EditItem") {
+			let navigationController = segue.destination as! UINavigationController
+			let controller = navigationController.topViewController as! ItemDetailViewController
+			controller.delegate = self
+			if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+				controller.itemToEdit = _items[indexPath.row]
+			}
+		}
+	}
 }
 

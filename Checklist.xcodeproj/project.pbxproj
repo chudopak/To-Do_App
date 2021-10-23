@@ -14,7 +14,7 @@
 		7D2DBF6B270DB5FA00DC7409 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DBF6A270DB5FA00DC7409 /* Assets.xcassets */; };
 		7D2DBF6E270DB5FA00DC7409 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DBF6C270DB5FA00DC7409 /* LaunchScreen.storyboard */; };
 		7D805A3D27118B80008275C3 /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D805A3C27118B80008275C3 /* ChecklistItem.swift */; };
-		7D917715272070D90027758D /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D917714272070D90027758D /* AddItemViewController.swift */; };
+		7D917715272070D90027758D /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D917714272070D90027758D /* ItemDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 		7D2DBF6D270DB5FA00DC7409 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D2DBF6F270DB5FA00DC7409 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D805A3C27118B80008275C3 /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
-		7D917714272070D90027758D /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
+		7D917714272070D90027758D /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +64,7 @@
 				7D2DBF63270DB5F900DC7409 /* SceneDelegate.swift */,
 				7D2DBF65270DB5F900DC7409 /* ChecklistViewController.swift */,
 				7D2DBF67270DB5F900DC7409 /* Main.storyboard */,
-				7D917714272070D90027758D /* AddItemViewController.swift */,
+				7D917714272070D90027758D /* ItemDetailViewController.swift */,
 				7D2DBF6A270DB5FA00DC7409 /* Assets.xcassets */,
 				7D2DBF6C270DB5FA00DC7409 /* LaunchScreen.storyboard */,
 				7D2DBF6F270DB5FA00DC7409 /* Info.plist */,
@@ -143,7 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D917715272070D90027758D /* AddItemViewController.swift in Sources */,
+				7D917715272070D90027758D /* ItemDetailViewController.swift in Sources */,
 				7D2DBF66270DB5F900DC7409 /* ChecklistViewController.swift in Sources */,
 				7D2DBF62270DB5F900DC7409 /* AppDelegate.swift in Sources */,
 				7D2DBF64270DB5F900DC7409 /* SceneDelegate.swift in Sources */,

@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct ChecklistItem {
+class ChecklistItem: NSObject {
 	var text: String
 	var checked: Bool
 
-	init() {
+	override init() {
 		text = ""
 		checked = false
 	}
@@ -20,7 +20,7 @@ struct ChecklistItem {
 		self.checked = checked
 	}
 	
-	mutating func toggleChecked () {
+	func toggleChecked () {
 		checked = !checked
 	}
 }
