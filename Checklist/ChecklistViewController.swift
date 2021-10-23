@@ -39,7 +39,7 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
 		let label = cell.viewWithTag(1000) as! UILabel
 
 		label.text = _items[indexPath.row].text
-		_isChecked(rowChecked: _items[indexPath.row].checked, cell: cell)
+		_configureCheckmark(rowChecked: _items[indexPath.row].checked, cell: cell)
 		return (cell)
 	}
 	
@@ -51,17 +51,19 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
 		}
 	}
 	
-	private func _isChecked(rowChecked: Bool, cell: UITableViewCell) {
+	private func _configureCheckmark(rowChecked: Bool, cell: UITableViewCell) {
+		let label = cell.viewWithTag(1001) as! UILabel
+		
 		if (rowChecked == true) {
-			cell.accessoryType = .checkmark
+			label.text = "✔️"
 		} else {
-			cell.accessoryType = .none
+			label.text = ""
 		}
 	}
 	
 	private func _rowInteraction(cell: UITableViewCell, didSelectRowAt indexPath: IndexPath) {
 		_items[indexPath.row].toggleChecked()
-		_isChecked(rowChecked: _items[indexPath.row].checked, cell: cell)
+		_configureCheckmark(rowChecked: _items[indexPath.row].checked, cell: cell)
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
