@@ -13,6 +13,8 @@
 		7D2DBF69270DB5F900DC7409 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DBF67270DB5F900DC7409 /* Main.storyboard */; };
 		7D2DBF6B270DB5FA00DC7409 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DBF6A270DB5FA00DC7409 /* Assets.xcassets */; };
 		7D2DBF6E270DB5FA00DC7409 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DBF6C270DB5FA00DC7409 /* LaunchScreen.storyboard */; };
+		7D4AC436272C288300A28BDA /* AllChecklistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4AC435272C288300A28BDA /* AllChecklistsViewController.swift */; };
+		7D4AC438272C49B500A28BDA /* Checklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4AC437272C49B500A28BDA /* Checklist.swift */; };
 		7D805A3D27118B80008275C3 /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D805A3C27118B80008275C3 /* ChecklistItem.swift */; };
 		7D917715272070D90027758D /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D917714272070D90027758D /* ItemDetailViewController.swift */; };
 /* End PBXBuildFile section */
@@ -26,6 +28,8 @@
 		7D2DBF6A270DB5FA00DC7409 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D2DBF6D270DB5FA00DC7409 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D2DBF6F270DB5FA00DC7409 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D4AC435272C288300A28BDA /* AllChecklistsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChecklistsViewController.swift; sourceTree = "<group>"; };
+		7D4AC437272C49B500A28BDA /* Checklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checklist.swift; sourceTree = "<group>"; };
 		7D805A3C27118B80008275C3 /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 		7D917714272070D90027758D /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -44,6 +48,8 @@
 		7D2DBF55270DB5F900DC7409 = {
 			isa = PBXGroup;
 			children = (
+				7D4AC435272C288300A28BDA /* AllChecklistsViewController.swift */,
+				7D4AC437272C49B500A28BDA /* Checklist.swift */,
 				7D2DBF60270DB5F900DC7409 /* Checklist */,
 				7D2DBF5F270DB5F900DC7409 /* Products */,
 			);
@@ -148,6 +154,8 @@
 				7D2DBF62270DB5F900DC7409 /* AppDelegate.swift in Sources */,
 				7D2DBF64270DB5F900DC7409 /* SceneDelegate.swift in Sources */,
 				7D805A3D27118B80008275C3 /* ChecklistItem.swift in Sources */,
+				7D4AC436272C288300A28BDA /* AllChecklistsViewController.swift in Sources */,
+				7D4AC438272C49B500A28BDA /* Checklist.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
