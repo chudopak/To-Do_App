@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AllChecklistsViewController: UITableViewController {
+class AllChecklistsViewController: UITableViewController, ListDetailViewControllerDelegate {
 
 	private var _lists: Array<Checklist>
 	
@@ -43,8 +43,6 @@ class AllChecklistsViewController: UITableViewController {
 	}
 	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
 		let cell = _makeCell(for: tableView)
 		cell.textLabel!.text = _lists[indexPath.row].name
 		cell.accessoryType = .detailDisclosureButton
@@ -53,7 +51,7 @@ class AllChecklistsViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let checklist = _lists[indexPath.row]
-		performSegue(withIdentifier: "ShowChecklist", sender: checklist)
+		performSegue (withIdentifier: "ShowChecklist", sender: checklist)
 	}
 	
 	override func tableView(_ tableView: UITableView,
@@ -70,6 +68,19 @@ class AllChecklistsViewController: UITableViewController {
 			controller.checklist = (sender as! Checklist)
 		}
 	}
+	
+	func listDetailViewControllerDidCancel(_ controller: ListDetailViewController) {
+		return
+	}
+	
+	func listDetailViewController(_ controller: ListDetailViewController, didFnishAdding item: Checklist) {
+		return
+	}
+	
+	func listDetailViewController(_ controller: ListDetailViewController, didFnishEditing item: Checklist) {
+		return
+	}
+	
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
