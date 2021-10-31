@@ -23,7 +23,7 @@
                     <navigationItem key="navigationItem" title="Checklists" id="gNV-6V-Yoy">
                         <barButtonItem key="rightBarButtonItem" title="New List" id="OWN-xh-Y0x">
                             <connections>
-                                <segue destination="xpZ-Fn-xIh" kind="presentation" id="fns-mt-7af"/>
+                                <segue destination="xpZ-Fn-xIh" kind="presentation" identifier="AddChecklist" id="sf6-zq-xgz"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -248,7 +248,7 @@
         <!--Navigation Controller-->
         <scene sceneID="yLH-qs-0NF">
             <objects>
-                <navigationController id="xpZ-Fn-xIh" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ListDetailNavigationController" id="xpZ-Fn-xIh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MX4-02-XIC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -265,7 +265,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wbn-KV-aEO"/>
+        <segue reference="p5C-2I-FFK"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

@@ -15,7 +15,7 @@ protocol ListDetailViewControllerDelegate: AnyObject {
 
 class ListDetailViewController: UITableViewController, UITextFieldDelegate {
 
-	weak var delegate: ListDetailViewController?
+	weak var delegate: ListDetailViewControllerDelegate?
 	
 	@IBOutlet var textField: UITextField!
 	@IBOutlet var doneBarButton: UIBarButtonItem!
@@ -49,10 +49,17 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
 	}
 	
 	@IBAction func cancel() {
-		dismiss(animated: true, completion: nil)
+		delegate?.listDetailViewControllerDidCancel(self)
 	}
 	
 	@IBAction func done() {
-		dismiss(animated: true, completion: nil)
+		if let list = checklistToEdit {
+			list.name = textField.text!
+			delegate?.listDetailViewController(self, didFnishEditing: list)
+		} else {
+			let list = Checklist(name: "")
+			list.name = textField.text!
+			delegate?.listDetailViewController(self, didFnishAdding: list)
+		}
 	}
 }

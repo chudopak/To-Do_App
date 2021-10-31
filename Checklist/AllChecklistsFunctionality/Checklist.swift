@@ -8,7 +8,11 @@
 import UIKit
 
 class Checklist: NSObject {
-	var name: String = ""
+	var name: String
+	
+	override init() {
+		name = ""
+	}
 	
 	init(name: String) {
 		self.name = name
