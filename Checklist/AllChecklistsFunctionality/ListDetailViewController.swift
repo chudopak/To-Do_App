@@ -57,7 +57,7 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
 			list.name = textField.text!
 			delegate?.listDetailViewController(self, didFnishEditing: list)
 		} else {
-			let list = Checklist(name: "")
+			let list = Checklist()
 			list.name = textField.text!
 			delegate?.listDetailViewController(self, didFnishAdding: list)
 		}

@@ -7,14 +7,15 @@
 
 import UIKit
 
-class AllChecklistsViewController: UITableViewController, ListDetailViewControllerDelegate {
+class AllChecklistsViewController: UITableViewController, ListDetailViewControllerDelegate, ChecklistViewControllerDelegate {
+	
 
 	private var _lists: Array<Checklist>
 	
 	required init?(coder aDecoder: NSCoder) {
 		_lists = [Checklist]()
 		super.init(coder: aDecoder)
-		_lists.append(Checklist(name: "Test"))
+		loadChecklistItems()
 	}
 	
     override func viewDidLoad() {
@@ -50,6 +51,7 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 							commit editingStyle: UITableViewCell.EditingStyle,
 							forRowAt indexPath: IndexPath) {
 		_lists.remove(at: indexPath.row)
+		saveChecklistItems()
 		let indexPaths = [indexPath]
 		tableView.deleteRows(at: indexPaths, with:.automatic)
 	}
@@ -67,17 +69,9 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 		if (segue.identifier == "ShowChecklist") {
 			let controller = segue.destination as! ChecklistViewController
 			controller.checklist = (sender as! Checklist)
+			controller.delegate = self
 		} else if (segue.identifier == "AddChecklist") {
-			let navigationController = segue.destination as! UINavigationController
-			let controller = navigationController.topViewController as! ListDetailViewController
-			controller.delegate = self
-		} else if (segue.identifier == "EditChecklist") {
-			let navigationController = segue.destination as! UINavigationController
-			let controller = navigationController.topViewController as! ListDetailViewController
-			controller.delegate = self
-			if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
-				controller.checklistToEdit = _lists[indexPath.row]
-			}
+			_delegateToListDetailViewController(for: segue)
 		}
 	}
 	
@@ -91,6 +85,7 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 		let indexPath = IndexPath(row: newRowIndex, section: 0)
 		let indexPaths = [indexPath]
 		tableView.insertRows(at: indexPaths, with: .automatic)
+		saveChecklistItems()
 		dismiss(animated: true, completion: nil)
 	}
 	
@@ -101,6 +96,48 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 				cell.textLabel!.text = item.name
 			}
 		}
+		saveChecklistItems()
 		dismiss(animated: true, completion: nil)
+	}
+	
+	private func _delegateToListDetailViewController(for segue: UIStoryboardSegue) {
+		let navigationController = segue.destination as! UINavigationController
+		let controller = navigationController.topViewController as! ListDetailViewController
+		controller.delegate = self
+	}
+	
+	func documentDirectory() -> URL {
+		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+		return (paths[0])
+	}
+	
+	func dataFilePath() -> URL {
+		return (documentDirectory().appendingPathComponent("Checklists.plist"))
+	}
+	
+	func saveChecklistItems() {
+		let encoder = PropertyListEncoder()
+		do {
+			let data = try encoder.encode(_lists)
+			try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
+		} catch {
+			print("Error encoding item array: \(error.localizedDescription)")
+		}
+	}
+	
+	func loadChecklistItems() {
+		let path = dataFilePath()
+		if let data = try? Data(contentsOf: path) {
+			let decoder = PropertyListDecoder()
+			do {
+				_lists = try decoder.decode([Checklist].self, from: data)
+			} catch {
+				print("Error decoding item array: \(error.localizedDescription)")
+			}
+		}
+	}
+	
+	func checklistViewControllerSaveItem() {
+		saveChecklistItems()
 	}
 }

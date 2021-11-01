@@ -59,7 +59,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                     <connections>
-                                                        <action selector="done" destination="gYq-Xs-Q8y" eventType="editingDidEndOnExit" id="K9g-JG-kBE"/>
+                                                        <action selector="done" destination="gYq-Xs-Q8y" eventType="editingDidEndOnExit" id="Z0P-aX-0NN"/>
                                                         <outlet property="delegate" destination="gYq-Xs-Q8y" id="12j-8Q-S1r"/>
                                                     </connections>
                                                 </textField>
