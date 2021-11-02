@@ -7,14 +7,9 @@
 
 import UIKit
 
-protocol ChecklistViewControllerDelegate: AnyObject {
-	func checklistViewControllerSaveItem()
-}
-
 class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {
 
 	var checklist: Checklist!
-	weak var delegate: ChecklistViewControllerDelegate?
 	
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
@@ -64,7 +59,6 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
 		if let cell = tableView.cellForRow(at: indexPath) {
 			_rowInteraction(cell: cell, didSelectRowAt: indexPath)
 		}
-		delegate?.checklistViewControllerSaveItem()
 		tableView.deselectRow(at: indexPath, animated: true)
 	}
 	
@@ -72,7 +66,6 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
 							commit editingStyle: UITableViewCell.EditingStyle,
 							forRowAt indexPath: IndexPath) {
 		checklist.items.remove(at: indexPath.row)
-		delegate?.checklistViewControllerSaveItem()
 		let indexPaths = [indexPath]
 		tableView.deleteRows(at: indexPaths, with: .automatic)
 	}
@@ -91,7 +84,6 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
 	
 	func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
 		_addItem(item: item)
-		delegate?.checklistViewControllerSaveItem()
 		dismiss(animated: true, completion: nil)
 	}
 	
@@ -102,7 +94,6 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
 			  _configureText(cell: cell, with: item)
 			}
 		}
-		delegate?.checklistViewControllerSaveItem()
 		dismiss(animated: true, completion: nil)
 	}
 	

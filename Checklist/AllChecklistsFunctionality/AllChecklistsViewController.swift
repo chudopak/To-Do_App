@@ -7,9 +7,8 @@
 
 import UIKit
 
-class AllChecklistsViewController: UITableViewController, ListDetailViewControllerDelegate, ChecklistViewControllerDelegate {
+class AllChecklistsViewController: UITableViewController, ListDetailViewControllerDelegate{
 	
-
 	private var _lists: Array<Checklist>
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -51,7 +50,7 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 							commit editingStyle: UITableViewCell.EditingStyle,
 							forRowAt indexPath: IndexPath) {
 		_lists.remove(at: indexPath.row)
-		saveChecklistItems()
+//		saveChecklistItems()
 		let indexPaths = [indexPath]
 		tableView.deleteRows(at: indexPaths, with:.automatic)
 	}
@@ -69,7 +68,6 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 		if (segue.identifier == "ShowChecklist") {
 			let controller = segue.destination as! ChecklistViewController
 			controller.checklist = (sender as! Checklist)
-			controller.delegate = self
 		} else if (segue.identifier == "AddChecklist") {
 			_delegateToListDetailViewController(for: segue)
 		}
@@ -85,7 +83,7 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 		let indexPath = IndexPath(row: newRowIndex, section: 0)
 		let indexPaths = [indexPath]
 		tableView.insertRows(at: indexPaths, with: .automatic)
-		saveChecklistItems()
+//		saveChecklistItems()
 		dismiss(animated: true, completion: nil)
 	}
 	
@@ -96,7 +94,7 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 				cell.textLabel!.text = item.name
 			}
 		}
-		saveChecklistItems()
+//		saveChecklistItems()
 		dismiss(animated: true, completion: nil)
 	}
 	
@@ -135,9 +133,5 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 				print("Error decoding item array: \(error.localizedDescription)")
 			}
 		}
-	}
-	
-	func checklistViewControllerSaveItem() {
-		saveChecklistItems()
 	}
 }

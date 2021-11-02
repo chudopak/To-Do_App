@@ -12,8 +12,9 @@ class Checklist: NSObject, Codable {
 	var items: Array<ChecklistItem>
 	
 	override init() {
-		name = ""
-		items = [ChecklistItem]()
+		self.name = ""
+		self.items = [ChecklistItem]()
+		super.init()
 	}
 	
 	init(name: String, items: [ChecklistItem]) {
