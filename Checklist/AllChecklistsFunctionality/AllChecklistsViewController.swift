@@ -9,12 +9,12 @@ import UIKit
 
 class AllChecklistsViewController: UITableViewController, ListDetailViewControllerDelegate{
 	
-	private var _lists: Array<Checklist>
+//	private var dataModel.lists: Array<Checklist>
+	var dataModel: DataModel!
 	
 	required init?(coder aDecoder: NSCoder) {
-		_lists = [Checklist]()
+		//dataModel.lists = [Checklist]()
 		super.init(coder: aDecoder)
-		loadChecklistItems()
 	}
 	
     override func viewDidLoad() {
@@ -22,7 +22,7 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
     }
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return (_lists.count)
+		return (dataModel.lists.count)
 	}
 
 	private func _makeCell(for tableView: UITableView) -> UITableViewCell {
@@ -36,20 +36,20 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = _makeCell(for: tableView)
-		cell.textLabel!.text = _lists[indexPath.row].name
+		cell.textLabel!.text = dataModel.lists[indexPath.row].name
 		cell.accessoryType = .detailDisclosureButton
         return cell
     }
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let checklist = _lists[indexPath.row]
+		let checklist = dataModel.lists[indexPath.row]
 		performSegue(withIdentifier: "ShowChecklist", sender: checklist)
 	}
 	
 	override func tableView(_ tableView: UITableView,
 							commit editingStyle: UITableViewCell.EditingStyle,
 							forRowAt indexPath: IndexPath) {
-		_lists.remove(at: indexPath.row)
+		dataModel.lists.remove(at: indexPath.row)
 //		saveChecklistItems()
 		let indexPaths = [indexPath]
 		tableView.deleteRows(at: indexPaths, with:.automatic)
@@ -59,7 +59,7 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 		let navigationController = storyboard!.instantiateViewController(withIdentifier: "ListDetailNavigationController") as! UINavigationController
 		let controller = navigationController.topViewController as! ListDetailViewController
 		controller.delegate = self
-		let checklist = _lists[indexPath.row]
+		let checklist = dataModel.lists[indexPath.row]
 		controller.checklistToEdit = checklist
 		present(navigationController, animated: true, completion: nil)
 	}
@@ -78,8 +78,8 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 	}
 	
 	func listDetailViewController(_ controller: ListDetailViewController, didFnishAdding item: Checklist) {
-		let newRowIndex = _lists.count
-		_lists.append(item)
+		let newRowIndex = dataModel.lists.count
+		dataModel.lists.append(item)
 		let indexPath = IndexPath(row: newRowIndex, section: 0)
 		let indexPaths = [indexPath]
 		tableView.insertRows(at: indexPaths, with: .automatic)
@@ -88,7 +88,7 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 	}
 	
 	func listDetailViewController(_ controller: ListDetailViewController, didFnishEditing item: Checklist) {
-		if let index = _lists.firstIndex(of: item) {
+		if let index = dataModel.lists.firstIndex(of: item) {
 			let indexPath = IndexPath(row: index, section: 0)
 			if let cell = tableView.cellForRow(at: indexPath) {
 				cell.textLabel!.text = item.name
@@ -102,36 +102,5 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 		let navigationController = segue.destination as! UINavigationController
 		let controller = navigationController.topViewController as! ListDetailViewController
 		controller.delegate = self
-	}
-	
-	func documentDirectory() -> URL {
-		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-		return (paths[0])
-	}
-	
-	func dataFilePath() -> URL {
-		return (documentDirectory().appendingPathComponent("Checklists.plist"))
-	}
-	
-	func saveChecklistItems() {
-		let encoder = PropertyListEncoder()
-		do {
-			let data = try encoder.encode(_lists)
-			try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
-		} catch {
-			print("Error encoding item array: \(error.localizedDescription)")
-		}
-	}
-	
-	func loadChecklistItems() {
-		let path = dataFilePath()
-		if let data = try? Data(contentsOf: path) {
-			let decoder = PropertyListDecoder()
-			do {
-				_lists = try decoder.decode([Checklist].self, from: data)
-			} catch {
-				print("Error decoding item array: \(error.localizedDescription)")
-			}
-		}
 	}
 }
