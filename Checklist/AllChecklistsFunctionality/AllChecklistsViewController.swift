@@ -7,19 +7,28 @@
 
 import UIKit
 
-class AllChecklistsViewController: UITableViewController, ListDetailViewControllerDelegate{
-	
-//	private var dataModel.lists: Array<Checklist>
+class AllChecklistsViewController: UITableViewController, ListDetailViewControllerDelegate, UINavigationControllerDelegate {
+
 	var dataModel: DataModel!
 	
 	required init?(coder aDecoder: NSCoder) {
-		//dataModel.lists = [Checklist]()
 		super.init(coder: aDecoder)
 	}
 	
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		navigationController?.delegate = self
+		let index = UserDefaults.standard.integer(forKey: "ChecklistIndex")
+		print("viewDidAppear", index)
+		if index != -1 {
+			let checklist = dataModel.lists[index]
+			performSegue(withIdentifier: "ShowChecklist", sender: checklist)
+		}
+	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return (dataModel.lists.count)
@@ -42,6 +51,7 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
     }
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		UserDefaults.standard.set(indexPath.row, forKey: "ChecklistIndex")
 		let checklist = dataModel.lists[indexPath.row]
 		performSegue(withIdentifier: "ShowChecklist", sender: checklist)
 	}
@@ -102,5 +112,12 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 		let navigationController = segue.destination as! UINavigationController
 		let controller = navigationController.topViewController as! ListDetailViewController
 		controller.delegate = self
+	}
+	
+	func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+		print("navigationController")
+		if (viewController === self) {
+			UserDefaults.standard.set(-1, forKey: "ChecklistIndex")
+		}
 	}
 }
