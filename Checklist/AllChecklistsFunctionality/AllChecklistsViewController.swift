@@ -19,6 +19,11 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
         super.viewDidLoad()
     }
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		tableView.reloadData()
+	}
+
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
@@ -33,19 +38,30 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return (dataModel.lists.count)
 	}
+	
+	private func _getDetailTextLabel(index: Int) -> String {
+		let count = dataModel.lists[index].countUncheckedItems()
+		if (dataModel.lists[index].items.count == 0) {
+			return ("(No Items)")
+		} else if (count == 0) {
+			return ("All Done!")
+		}
+		return ("\(count) remain")
+	}
 
 	private func _makeCell(for tableView: UITableView) -> UITableViewCell {
 		let cellIdentifier = "Cell"
 		if let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) {
 			return (cell)
 		} else {
-			return (UITableViewCell(style: .default, reuseIdentifier: cellIdentifier))
+			return (UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier))
 		}
 	}
 	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = _makeCell(for: tableView)
 		cell.textLabel!.text = dataModel.lists[indexPath.row].name
+		cell.detailTextLabel!.text = _getDetailTextLabel(index: indexPath.row)
 		cell.accessoryType = .detailDisclosureButton
         return cell
     }
