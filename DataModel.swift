@@ -17,10 +17,20 @@ class DataModel {
 			UserDefaults.standard.synchronize()
 		}
 	}
+	
+	private var _notFirstStart: Bool {
+		get {
+			return UserDefaults.standard.bool(forKey: "NotFirstStart")
+		} set {
+			UserDefaults.standard.set(newValue, forKey: "NotFirstStart")
+			UserDefaults.standard.synchronize()
+		}
+	}
 
 	init() {
 		loadChecklistItems()
 		registerDefaults()
+		handleFirstTime()
 	}
 	
 	func documentDirectory() -> URL {
@@ -57,6 +67,20 @@ class DataModel {
 	func registerDefaults() {
 		if (lists.count <= indexOfSelectedRow) {
 			indexOfSelectedRow = -1
+		}
+	}
+	
+	func handleFirstTime() {
+		if (lists.count != 0) {
+			_notFirstStart = true
+		}
+		else if (_notFirstStart == false) {
+			let startChecklistItem = [ChecklistItem(text: "Example Item", checked: false)]
+			let startChecklist = Checklist(name: "Example Checklist", items: startChecklistItem)
+			lists.append(startChecklist)
+			
+			indexOfSelectedRow = 0
+			_notFirstStart = true
 		}
 	}
 }
