@@ -62,6 +62,7 @@ class DataModel {
 				print("Error decoding item array: \(error.localizedDescription)")
 			}
 		}
+		sortChecklistByAlphabet()
 	}
 
 	func registerDefaults() {
@@ -82,5 +83,10 @@ class DataModel {
 			indexOfSelectedRow = 0
 			_notFirstStart = true
 		}
+	}
+	
+	func sortChecklistByAlphabet() {
+		lists.sort(by: {list1, list2 in
+					return list1.name.caseInsensitiveCompare(list2.name) == .orderedAscending})
 	}
 }

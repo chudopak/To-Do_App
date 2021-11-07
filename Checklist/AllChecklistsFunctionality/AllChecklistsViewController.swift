@@ -62,6 +62,7 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 		let cell = _makeCell(for: tableView)
 		cell.textLabel!.text = dataModel.lists[indexPath.row].name
 		cell.detailTextLabel!.text = _getDetailTextLabel(index: indexPath.row)
+		cell.imageView!.image = UIImage(named: dataModel.lists[indexPath.row].iconName)
 		cell.accessoryType = .detailDisclosureButton
         return cell
     }
@@ -110,6 +111,8 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 		let indexPaths = [indexPath]
 		tableView.insertRows(at: indexPaths, with: .automatic)
 //		saveChecklistItems()
+		dataModel.sortChecklistByAlphabet()
+		tableView.reloadData()
 		dismiss(animated: true, completion: nil)
 	}
 	
@@ -120,6 +123,8 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 				cell.textLabel!.text = item.name
 			}
 		}
+		dataModel.sortChecklistByAlphabet()
+		tableView.reloadData()
 //		saveChecklistItems()
 		dismiss(animated: true, completion: nil)
 	}
