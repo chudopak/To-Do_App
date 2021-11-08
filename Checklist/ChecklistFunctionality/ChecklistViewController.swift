@@ -87,7 +87,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
 		dismiss(animated: true, completion: nil)
 	}
 	
-	func itemDetailViewController(_ controllet: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
+	func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
 		if let index = checklist.items.firstIndex(of: item) {
 			let indexPath = IndexPath(row: index, section: 0)
 			if let cell = tableView.cellForRow(at: indexPath) {

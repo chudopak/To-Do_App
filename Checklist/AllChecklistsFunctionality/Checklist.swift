@@ -23,6 +23,14 @@ class Checklist: NSObject, Codable {
 		self.name = name
 		self.items = items
 		self.iconName = "No Icon"
+		super.init()
+	}
+	
+	init(name: String, iconName: String) {
+		self.name = name
+		self.items = [ChecklistItem]()
+		self.iconName = iconName
+		super.init()
 	}
 	
 	func countUncheckedItems() -> Int {
