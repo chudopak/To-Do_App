@@ -44,7 +44,8 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
 		let label = cell.viewWithTag(1001) as! UILabel
 		
 		if (rowChecked == true) {
-			label.text = "✔️"
+			label.text = "✓"
+			label.textColor = view.tintColor
 		} else {
 			label.text = ""
 		}

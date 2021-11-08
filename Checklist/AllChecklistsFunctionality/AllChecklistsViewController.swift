@@ -62,6 +62,7 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 		let cell = _makeCell(for: tableView)
 		cell.textLabel!.text = dataModel.lists[indexPath.row].name
 		cell.detailTextLabel!.text = _getDetailTextLabel(index: indexPath.row)
+		cell.textLabel!.font = UIFont.systemFont(ofSize: 18.0)
 		cell.imageView!.image = UIImage(named: dataModel.lists[indexPath.row].iconName)
 		cell.accessoryType = .detailDisclosureButton
         return cell
@@ -77,7 +78,6 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 							commit editingStyle: UITableViewCell.EditingStyle,
 							forRowAt indexPath: IndexPath) {
 		dataModel.lists.remove(at: indexPath.row)
-//		saveChecklistItems()
 		let indexPaths = [indexPath]
 		tableView.deleteRows(at: indexPaths, with:.automatic)
 	}
@@ -110,7 +110,6 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 		let indexPath = IndexPath(row: newRowIndex, section: 0)
 		let indexPaths = [indexPath]
 		tableView.insertRows(at: indexPaths, with: .automatic)
-//		saveChecklistItems()
 		dataModel.sortChecklistByAlphabet()
 		tableView.reloadData()
 		dismiss(animated: true, completion: nil)
@@ -125,7 +124,6 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 		}
 		dataModel.sortChecklistByAlphabet()
 		tableView.reloadData()
-//		saveChecklistItems()
 		dismiss(animated: true, completion: nil)
 	}
 	
@@ -136,7 +134,6 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 	}
 	
 	func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-		//print("navigationController")
 		if (viewController === self) {
 			dataModel.indexOfSelectedRow = -1
 		}
