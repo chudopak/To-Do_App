@@ -69,6 +69,7 @@ class DataModel {
 		if (lists.count <= indexOfSelectedRow) {
 			indexOfSelectedRow = -1
 		}
+		
 	}
 	
 	func handleFirstTime() {

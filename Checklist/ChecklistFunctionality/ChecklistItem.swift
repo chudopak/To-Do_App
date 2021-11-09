@@ -10,6 +10,10 @@ import Foundation
 class ChecklistItem: NSObject, Codable {
 	var text: String
 	var checked: Bool
+	
+	var dueDate = Date()
+	var shouldRemind = false
+	var itemID: Int
 
 	override init() {
 		text = ""
