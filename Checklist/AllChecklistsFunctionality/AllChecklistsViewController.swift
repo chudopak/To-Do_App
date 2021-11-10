@@ -74,9 +74,16 @@ class AllChecklistsViewController: UITableViewController, ListDetailViewControll
 		performSegue(withIdentifier: "ShowChecklist", sender: checklist)
 	}
 	
+	private func _removeNotificationFromChecklistItems(for index: Int) {
+		for item in dataModel.lists[index].items {
+			item.removeNotification()
+		}
+	}
+	
 	override func tableView(_ tableView: UITableView,
 							commit editingStyle: UITableViewCell.EditingStyle,
 							forRowAt indexPath: IndexPath) {
+		_removeNotificationFromChecklistItems(for: indexPath.row)
 		dataModel.lists.remove(at: indexPath.row)
 		let indexPaths = [indexPath]
 		tableView.deleteRows(at: indexPaths, with:.automatic)

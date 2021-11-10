@@ -66,6 +66,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
 	override func tableView(_ tableView: UITableView,
 							commit editingStyle: UITableViewCell.EditingStyle,
 							forRowAt indexPath: IndexPath) {
+		checklist.items[indexPath.row].removeNotification()
 		checklist.items.remove(at: indexPath.row)
 		let indexPaths = [indexPath]
 		tableView.deleteRows(at: indexPaths, with: .automatic)

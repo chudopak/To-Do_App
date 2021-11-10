@@ -69,7 +69,9 @@ class DataModel {
 		if (lists.count <= indexOfSelectedRow) {
 			indexOfSelectedRow = -1
 		}
-		
+		if (UserDefaults.standard.integer(forKey: "ChecklistItemID") == 0) {
+			UserDefaults.standard.set(0, forKey: "ChecklistItemID")
+		}
 	}
 	
 	func handleFirstTime() {
@@ -89,5 +91,13 @@ class DataModel {
 	func sortChecklistByAlphabet() {
 		lists.sort(by: {list1, list2 in
 					return list1.name.caseInsensitiveCompare(list2.name) == .orderedAscending})
+	}
+	
+	class func nextChecklistItemID() -> Int {
+		let userDefaults = UserDefaults.standard
+		let itemID = userDefaults.integer(forKey: "ChecklistItemID")
+		userDefaults.set(itemID + 1, forKey: "ChecklistItemID")
+		userDefaults.synchronize()
+		return (itemID)
 	}
 }
