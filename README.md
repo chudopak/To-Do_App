@@ -9,7 +9,22 @@ the iPhone pop up an alert on the due date, even when the app isn’t running.
 
 This App has five different screens. They built on top of the **Table View Controller's** and **Navigation Controller's**. One of them built just by coding (no **table view cells** added from *objects library*), two of them built by using **prototype cells** and other two screens made by using **static cells**.
 
-This is how the storyboard looks at the final version.
+This is the final version of storyboard.
 <p align="center">
 	<img src="ForREADME/storyboard.jpg" alt="animated" />
+</p>
+
+### Add/Edit New Checklist
+<p align="center">
+	<img src="ForREADME/AddNewChecklist.gif" alt="animated" />
+</p>
+
+### Add/Edit New Checklist Item
+<p align="center">
+	<img src="ForREADME/AddNewItem.gif" alt="animated" />
+</p>
+
+### Set Reminder
+<p align="center">
+	<img src="ForREADME/Reminder.gif" alt="animated" />
 </p>
