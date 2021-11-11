@@ -8,3 +8,8 @@ once you’re done with them. You can also set a reminder on a to-do item that w
 the iPhone pop up an alert on the due date, even when the app isn’t running.
 
 This App has five different screens. They built on top of the **Table View Controller's** and **Navigation Controller's**. One of them built just by coding (no **table view cells** added from *objects library*), two of them built by using **prototype cells** and other two screens made by using **static cells**.
+
+This is how the storyboard looks at the final version.
+<p align="center">
+	<img src="ForREADME/storyboard.jpg" alt="animated" />
+</p>
